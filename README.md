@@ -1,0 +1,1 @@
+# domoticz-eCoal.pl_v3.5
