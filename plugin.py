@@ -10,7 +10,7 @@
         <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
         <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
-        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;t1_value,t,Temp. czujnik 1;t2_value,t,Temp. czujnik 2;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
+        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
