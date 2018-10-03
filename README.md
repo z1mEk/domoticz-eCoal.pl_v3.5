@@ -7,11 +7,15 @@ Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 
 # Konfiguracja pluginu
 
-| Parametr  | Wartość domyślna | Opis                       |
-| --------- | ---------------- | -------------------------- |
-|           |                  |                            |
+| Parametr   | Wartość domyślna | Opis                           |
+| ---------- | ---------------- | ------------------------------ |
+| Adres IP   | 192.168.1.1      | Adres IP strownika eCoal.pl    |
+| Port       | 80               | Port sterownika eCoal.pl       |
+| Użytkownik | root             | Użytkownik sterownika eCoal.pl |
+| Hasło      | root             | Hasło użytkownika eCoal.pl     |
 
 # Wymagania
+...
 
 ## Format adresu URL z zapytaniem o wartości parametrów
 http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
