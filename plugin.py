@@ -25,7 +25,7 @@
 import Domoticz
 
 class eCoal35:
-    def getRegisterData():
+    def getregister():
         return 0
 
 class BasePlugin:
