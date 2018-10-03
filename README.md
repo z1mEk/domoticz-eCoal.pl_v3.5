@@ -39,7 +39,7 @@ git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
 
 ## Typy danych
 | Typ | Typ urządzenia Domoticz | Jednostka | Zakładka Domoticz |
-| --- | -----------| ---- | -----|
+| :---: | -----------| :----: | -----|
 | t | Temperatura | ℃ | Temperatura |
 | p | Wartość procentowa | % | Użytkowe |
 | b | Ciśnienie | bar | Użytkowe |
