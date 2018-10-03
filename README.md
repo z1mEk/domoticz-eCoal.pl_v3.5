@@ -14,12 +14,6 @@ Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 | Użytkownik | root             | Użytkownik sterownika eCoal.pl |
 | Hasło      | root             | Hasło użytkownika eCoal.pl     |
 
-# Wymagania
-...
-
-## Format adresu URL z zapytaniem o wartości parametrów
-http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
-
 ## Dostępne atrybuty
 
 | Atrybut    | Opis                                         |
@@ -34,6 +28,16 @@ http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
 | t2_value   | temperatura czujnika dodatkowego nr 2        |
 | tsp_value  | temperatura spalin                           |
 
+
+# Wymagania
+...
+
+# Opis komunikacji
+
+## Format adresu URL z zapytaniem o wartości parametrów
+```
+http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
+```
 ## Format odpowiedzi
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
