@@ -7,7 +7,7 @@ http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
 ## Dostępne atrybuty
 
 | Atrybut    | Opis                                         |
-| ---------- | :-------------------------------------------:|
+| ---------- | ---------------------------------------------|
 | tkot_value | temperatura zasilania (temperatura na kotle) |
 | tpow_value | temperatura powrotu                          |
 | tpod_value |                                              |
