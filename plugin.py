@@ -1,5 +1,5 @@
 """
-<plugin key="eCoal35" name="Sterownik kotła eCoal.pl v3.5" author="z1mEk" version="0.1.0" wikilink="" externallink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5">
+<plugin key="eCoal35" name="eCoal.pl v3.5 - Sterownik kotła" author="z1mEk" version="0.1.0" wikilink="" externallink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5">
     <description>
         <p>Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.</p>
         <p>Informacje o sterowniku: <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
@@ -10,7 +10,7 @@
         <param field="Username" label="Użytkownik" width="50px" required="true" default="80"/>
         <param field="Password" label="Hasło" width="50px" required="true" default="80"/>
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
-        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default=""/>
+        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,T,Temp. kocioł;tpow_value,T,Temp. powrotu;tpod_value,T,Temp. podajnika;tcwu_value,T,Temp. CVU;twew_value,T,Temp. wewnętrzna;tzew_value,T,Temp. zewnętrzna;t1_value,T,Temp. czujnik 1;t2_value,T,Temp. czujnik 2;tsp_value,T,Temp. spalin;fuel_level,P,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
