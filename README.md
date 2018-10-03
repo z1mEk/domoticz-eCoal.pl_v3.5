@@ -17,7 +17,10 @@ git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
 | Port       | 80               | Port sterownika eCoal.pl       |
 | Użytkownik | root             | Użytkownik sterownika eCoal.pl |
 | Hasło      | root             | Hasło użytkownika eCoal.pl     |
-| Rejestry   | tkot_value,T,Temp. kocioł;tpow_value,T,Temp. powrotu;tpod_value,T,Temp. podajnika;tcwu_value,T,Temp. CVU;twew_value,T,Temp. wewnętrzna;tzew_value,T,Temp. zewnętrzna;t1_value,T,Temp. czujnik 1;t2_value,T,Temp. czujnik 2;tsp_value,T,Temp. spalin       | Parametry                      |
+| ID urządzenia | 0             | Identyfikator sterownika       |
+| Rejestry danych | tkot_value,T,Temp. kocioł;tpow_value,T,Temp. powrotu;tpod_value,T,Temp. podajnika;tcwu_value,T,Temp. CVU;twew_value,T,Temp. wewnętrzna;tzew_value,T,Temp. zewnętrzna;t1_value,T,Temp. czujnik 1;t2_value,T,Temp. czujnik 2;tsp_value,T,Temp. spalin;fuel_level,P,Poziom paliwa | Konfiguracja urządzeń według rejestrów eCoal.pl |
+| Częstotliwość odczytu | 300   | Interwał odczytu danych z urządzenia podany w sekundach |
+| Debug      | Nie              | Tryb zapisu zdarzeń do logu    |
 
 ## Dostępne atrybuty
 
