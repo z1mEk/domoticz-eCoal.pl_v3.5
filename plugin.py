@@ -7,8 +7,11 @@
     <params>
         <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
         <param field="Port" label="Port" width="50px" required="true" default="80"/>
-        <param field="Mode1" label="Rejestry danych" width="400px" required="true" default=""/>
-        <param field="Mode2" label="Częstotliwość odczytu" width="50px" required="true" default="30"/>
+        <param field="Username" label="Użytkownik" width="50px" required="true" default="80"/>
+        <param field="Password" label="Hasło" width="50px" required="true" default="80"/>
+        <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
+        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default=""/>
+        <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="True" value="Debug"/>
@@ -21,6 +24,10 @@
 
 import Domoticz
 
+class eCoal35:
+    def getRegisterData():
+        return 0
+
 class BasePlugin:
             
     def onStart(self):
@@ -29,7 +36,12 @@ class BasePlugin:
         Domoticz.Debug("onStart called")
         
         #Utworzenie urządzeń zdefiniowanych w parametrze Rejestry danych
-        #Domoticz.Device(Name="", Unit=1, Type=1, Used=1).Create()
+        if (len(Devices) == 0):
+            Domoticz.Device(Name="Temperatura", Unit=1, TypeName="Temperature", used=1).Create()
+        
+        # Utworzenie połączenia ze sterownikiem eCoal
+        Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
+        Conn.Connect()
         
     def onStop(self):
         Domoticz.Log("onStop called")
