@@ -11,13 +11,13 @@ http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
 | ---------- | ---------------------------------------------|
 | tkot_value | temperatura zasilania (temperatura na kotle) |
 | tpow_value | temperatura powrotu                          |
-| tpod_value |                                              |
+| tpod_value | temperatura podajnika                        |
 | tcwu_value | temperatura ciepłej wody użytkowej           |
 | twew_value | temperatura wewnętrzna                       |
 | tzew_value | temperatura zewnętrzna                       |
 | t1_value   | temperatura czujnika dodatkowego nr 1        |
 | t2_value   | temperatura czujnika dodatkowego nr 2        |
-| tsp_value  |                                              |
+| tsp_value  | temperatura spalin                           |
 
 ## Format odpowiedzi
 ```xml
