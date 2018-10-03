@@ -43,6 +43,7 @@ git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
 | t | Temperatura | ℃ | Temperatura |
 | p | Wartość procentowa | % | Użytkowe |
 | b | Ciśnienie | bar | Użytkowe |
+| c | Custom | (etykieta AXIS)  | Użytkowe |
 
 # Opis komunikacji
 Komunikacja ze sterownikiem odbywa się poprzez wywołanie metody GET dla CGI sterownika. Odpowiedź sterownika jest w formacie XML.

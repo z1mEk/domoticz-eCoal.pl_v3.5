@@ -32,7 +32,7 @@ class BasePlugin:
         Domoticz.Debug("onStart called")
 
         if (len(Devices) == 0):
-            units = {"t":"Temperature","p":"Percentage"}
+            units = {"t":"Temperature","p":"Percentage","b":"Barometer","c":"Custom"}
             for i, x in enumerate(Parameters["Mode2"].split(";")):
                 Domoticz.Debug(x)
                 device_id, device_type, device_name = x.split(",")
