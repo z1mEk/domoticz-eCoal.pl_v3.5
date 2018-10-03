@@ -25,20 +25,20 @@
 import Domoticz
 
 class BasePlugin:
-            
+
     def onStart(self):
         if Parameters["Mode6"] == "Debug":
             Domoticz.Debugging(1)
         Domoticz.Debug("onStart called")
-        
+
         #Utworzenie urządzeń zdefiniowanych w parametrze Rejestry danych
         #if (len(Devices) == 0):
         #    Domoticz.Device(Name="Temperatura", Unit=1, TypeName="Temperature", used=1).Create()
-        
+
         # Utworzenie połączenia ze sterownikiem eCoal
         #Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
         #Conn.Connect()
-        
+
     def onStop(self):
         Domoticz.Log("onStop called")
 
