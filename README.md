@@ -3,8 +3,10 @@ Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowani
 Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 
 # Instalacja pluginu
-...
-
+```
+cd domoticz/plugin
+git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoal.plv35
+```
 # Konfiguracja pluginu
 
 | Parametr   | Wartość domyślna | Opis                           |
