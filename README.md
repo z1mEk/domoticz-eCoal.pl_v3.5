@@ -33,6 +33,7 @@ Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 ...
 
 # Opis komunikacji
+Komunikacja ze sterownikiem odbywa się poprzez wywołanie metody GET dla CGI sterownika. Odpowiedź sterownika jest w formacie XML.
 
 ## Format adresu URL z zapytaniem o wartości parametrów
 ```
