@@ -25,17 +25,18 @@
 import Domoticz
 
 class BasePlugin:
+    self.units = {"t":"Temperature","p":"Percentage","b":"Barometer"}
 
     def onStart(self):
         if Parameters["Mode6"] == "Debug":
             Domoticz.Debugging(1)
         Domoticz.Debug("onStart called")
 
-        units = {"t":"Temperature", "p":"Percentage", "b":"Barometer"}
         if (len(Devices) == 0):
             for i, x in enumerate(Parameters["Mode2"].split(";")):
                 device_id, device_type, device_name = x.split(",")
-                Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=units[device_type], Used=1).Create()
+                Domoticz.Debug("Create device: " + device_name)
+                Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=self.units[device_type], Used=1).Create()
 
         # Utworzenie połączenia ze sterownikiem eCoal
         #Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
