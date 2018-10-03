@@ -28,10 +28,6 @@ Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 | t2_value   | temperatura czujnika dodatkowego nr 2        |
 | tsp_value  | temperatura spalin                           |
 
-
-# Wymagania
-...
-
 # Opis komunikacji
 Komunikacja ze sterownikiem odbywa się poprzez wywołanie metody GET dla CGI sterownika. Odpowiedź sterownika jest w formacie XML.
 
