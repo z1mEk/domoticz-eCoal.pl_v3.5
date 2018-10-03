@@ -24,10 +24,6 @@
 
 import Domoticz
 
-class eCoal35:
-    def getregister():
-        return 0
-
 class BasePlugin:
             
     def onStart(self):
@@ -36,12 +32,12 @@ class BasePlugin:
         Domoticz.Debug("onStart called")
         
         #Utworzenie urządzeń zdefiniowanych w parametrze Rejestry danych
-        if (len(Devices) == 0):
-            Domoticz.Device(Name="Temperatura", Unit=1, TypeName="Temperature", used=1).Create()
+        #if (len(Devices) == 0):
+        #    Domoticz.Device(Name="Temperatura", Unit=1, TypeName="Temperature", used=1).Create()
         
         # Utworzenie połączenia ze sterownikiem eCoal
-        Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
-        Conn.Connect()
+        #Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
+        #Conn.Connect()
         
     def onStop(self):
         Domoticz.Log("onStop called")
