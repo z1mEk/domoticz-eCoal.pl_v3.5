@@ -3,11 +3,12 @@ Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowani
 Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
 
 # Instalacja pluginu
+...
 
 # Konfiguracja pluginu
 
 | Parametr  | Wartość domyślna | Opis                       |
-| --------- | ---------------- |                            |
+| --------- | ---------------- | -------------------------- |
 |           |                  |                            |
 
 # Wymagania
