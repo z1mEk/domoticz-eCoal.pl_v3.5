@@ -17,6 +17,7 @@ git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
 | Port       | 80               | Port sterownika eCoal.pl       |
 | Użytkownik | root             | Użytkownik sterownika eCoal.pl |
 | Hasło      | root             | Hasło użytkownika eCoal.pl     |
+| Rejestry   | tkot_value,T,Temp. kocioł;tpow_value,T,Temp. powrotu;tpod_value,T,Temp. podajnika;tcwu_value,T,Temp. CVU;twew_value,T,Temp. wewnętrzna;tzew_value,T,Temp. zewnętrzna;t1_value,T,Temp. czujnik 1;t2_value,T,Temp. czujnik 2;tsp_value,T,Temp. spalin       | Parametry                      |
 
 ## Dostępne atrybuty
 
@@ -31,6 +32,7 @@ git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
 | t1_value   | temperatura czujnika dodatkowego nr 1        |
 | t2_value   | temperatura czujnika dodatkowego nr 2        |
 | tsp_value  | temperatura spalin                           |
+| fuel_level | poziom paliwa                                |
 
 # Opis komunikacji
 Komunikacja ze sterownikiem odbywa się poprzez wywołanie metody GET dla CGI sterownika. Odpowiedź sterownika jest w formacie XML.
