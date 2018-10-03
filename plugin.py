@@ -2,9 +2,13 @@
 <plugin key="eCoal35" name="Sterownik kotła eCoal.pl v3.5" author="z1mEk" version="0.1.0" wikilink="" externallink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5">
     <description>
         <p>Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.</p>
-        <p>Informacje na stronie producenta: <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
+        <p>Informacje o sterowniku: <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
     </description>
     <params>
+        <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
+        <param field="Port" label="Port" width="50px" required="true" default="80"/>
+        <param field="Mode1" label="Rejestry danych" width="400px" required="true" default=""/>
+        <param field="Mode2" label="Częstotliwość odczytu" width="50px" required="true" default="30"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="True" value="Debug"/>
@@ -23,6 +27,9 @@ class BasePlugin:
         if Parameters["Mode6"] == "Debug":
             Domoticz.Debugging(1)
         Domoticz.Debug("onStart called")
+        
+        #Utworzenie urządzeń zdefiniowanych w parametrze Rejestry danych
+        #Domoticz.Device(Name="", Unit=1, Type=1, Used=1).Create()
         
     def onStop(self):
         Domoticz.Log("onStop called")
