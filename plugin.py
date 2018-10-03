@@ -7,10 +7,10 @@
     <params>
         <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
         <param field="Port" label="Port" width="50px" required="true" default="80"/>
-        <param field="Username" label="Użytkownik" width="50px" required="true" default="80"/>
-        <param field="Password" label="Hasło" width="50px" required="true" default="80"/>
+        <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
+        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
-        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,T,Temp. kocioł;tpow_value,T,Temp. powrotu;tpod_value,T,Temp. podajnika;tcwu_value,T,Temp. CVU;twew_value,T,Temp. wewnętrzna;tzew_value,T,Temp. zewnętrzna;t1_value,T,Temp. czujnik 1;t2_value,T,Temp. czujnik 2;tsp_value,T,Temp. spalin;fuel_level,P,Poziom paliwa"/>
+        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;t1_value,t,Temp. czujnik 1;t2_value,t,Temp. czujnik 2;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
@@ -31,9 +31,11 @@ class BasePlugin:
             Domoticz.Debugging(1)
         Domoticz.Debug("onStart called")
 
-        #Utworzenie urządzeń zdefiniowanych w parametrze Rejestry danych
-        #if (len(Devices) == 0):
-        #    Domoticz.Device(Name="Temperatura", Unit=1, TypeName="Temperature", used=1).Create()
+        units = {"t":"Temperature", "p":"Percentage", "b":"Barometer"}
+        if (len(Devices) == 0):
+            for i, x in enumerate(Parameters["Mode2"].split(";")):
+                device_id, device_type, device_name = x.split(",")
+                Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=units[device_type], Used=1).Create()
 
         # Utworzenie połączenia ze sterownikiem eCoal
         #Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
