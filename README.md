@@ -1,4 +1,4 @@
-# Status - w przygotowaniu !
+# Status - testowanie!!!
 
 # eCoal.pl v3.5 - Plugin dla systemu Domoticz
 Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.
