@@ -42,7 +42,7 @@ class BasePlugin:
                 Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=self.units[device_type], Used=1).Create()
 
         self.eCoalConn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
-        #self.eCoalConn.Connect()
+        self.eCoalConn.Connect()
         Domoticz.Heartbeat(int(Parameters["Mode3"]))
 
     def onStop(self):
@@ -63,7 +63,6 @@ class BasePlugin:
                         for DeviceUnit in Devices:
                             if Devices[DeviceUnit].DeviceID == child.attrib['tid']:
                                 Devices[DeviceUnit].Update(0, child.attrib['v'])
-        Connection.Disconnect()
 
     def onCommand(self, Unit, Command, Level, Hue):
         Domoticz.Debug("onCommand called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level) + "', Hue: " + str(Hue))
@@ -73,10 +72,10 @@ class BasePlugin:
 
     def onDisconnect(self, Connection):
         Domoticz.Debug("onDisconnect called")
+        Connection.Connect()
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
-        self.eCoalConn.Connect()
         data = 'device' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
