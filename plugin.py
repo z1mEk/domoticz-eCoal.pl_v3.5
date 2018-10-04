@@ -23,7 +23,6 @@
 """
 
 import Domoticz
-import base64
 import xml.etree.ElementTree as et
 
 class BasePlugin:
@@ -79,12 +78,10 @@ class BasePlugin:
         data = 'device' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
-        b64Authentication = base64.b64encode((Parameters["Username"] + ":" + Parameters["Password"]).encode()).decode("utf-8")
         headers = { 'Content-Type': 'text/xml; charset=utf-8', \
                     'Connection': 'keep-alive', \
                     'Accept': 'Content-Type: text/html; charset=UTF-8', \
                     'Host': Parameters["Address"]+":"+Parameters["Port"], \
-                    'Authentication':'Basic ' + b64Authentication, \
                     'User-Agent':'Domoticz/1.0', \
                     'Content-Length' : "%d"%(len(data)) }
         self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
