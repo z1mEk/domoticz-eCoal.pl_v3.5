@@ -75,18 +75,18 @@ class BasePlugin:
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
-        data = '/getregister.cgi?device=' + Parameters["Mode1"]
+        data = 'device=' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
         headers = { 
                     #'Content-Type': 'text/html; charset=utf-8', \
                     #'Connection': 'keep-alive', \
-                    #'Accept': '*/*', \
+                    'Accept': '*/*', \
                     'Host': Parameters["Address"], \
-                    #'User-Agent':'curl/7.38.0'
+                    'User-Agent':'curl/7.38.0'
                     #'Content-Length' : "%d"%(len(data))
                    }
-        self.eCoalConn.Send({'Verb':'GET', 'URL':data, 'Headers':headers})
+        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
 
 global _plugin
 _plugin = BasePlugin()
