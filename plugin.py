@@ -28,7 +28,6 @@ import xml.etree.ElementTree as et
 
 class BasePlugin:
     eCoalConn = None
-    #isConnect = false
     units = {"t":"Temperature", "p":"Percentage", "b":"Barometer", "c":"Custom"}
 
     def onStart(self):
@@ -43,7 +42,7 @@ class BasePlugin:
                 Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=self.units[device_type], Used=1).Create()
 
         self.eCoalConn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
-        self.eCoalConn.Connect()
+        #self.eCoalConn.Connect()
         Domoticz.Heartbeat(int(Parameters["Mode3"]))
 
     def onStop(self):
@@ -54,9 +53,9 @@ class BasePlugin:
 
     def onMessage(self, Connection, Data):
         Domoticz.Debug("onMessage called, Data: " + str(Data))
-        if Data['Status'] == '200':
+        if Data['Status'] == '400':
             httpBody = str(Data['Data'])
-            #httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
+            httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
             xmlBody = et.fromstring(httpBody)
             if 'status' in xmlBody.attrib:
                 if xmlBody.attrib['status'] == "ok":
@@ -64,6 +63,7 @@ class BasePlugin:
                         for DeviceUnit in Devices:
                             if Devices[DeviceUnit].DeviceID == child.attrib['tid']:
                                 Devices[DeviceUnit].Update(0, child.attrib['v'])
+        Connection.Disconnect()
 
     def onCommand(self, Unit, Command, Level, Hue):
         Domoticz.Debug("onCommand called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level) + "', Hue: " + str(Hue))
@@ -76,12 +76,7 @@ class BasePlugin:
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
-        if  self.eCoalConn.Connected():
-            Domoticz.Debug("onHeartbeat called, Connection is alive.")
-        else:
-            self.eCoalConn.Connect()
-            Domoticz.Debug("onHeartbeat reconnect")
-
+        self.eCoalConn.Connect()
         data = 'device' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
