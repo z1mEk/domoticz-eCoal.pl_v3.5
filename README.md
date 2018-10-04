@@ -71,6 +71,6 @@ http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
 ```
 # TODO
 - [x] Dodawanie urządzeń z konfiguracji parametru
-- [ ] Zaimplementować połączenie ze sterownikiem
-- [ ] Odczyt XML
-- [ ] Aktualizacja urządzeń
+- [x] Zaimplementować połączenie ze sterownikiem
+- [x] Odczyt XML
+- [x] Aktualizacja urządzeń
