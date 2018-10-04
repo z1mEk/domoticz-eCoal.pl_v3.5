@@ -7,8 +7,8 @@
     <params>
         <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
         <param field="Port" label="Port" width="50px" required="true" default="80"/>
-        <!--<param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
-        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>-->
+        <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
+        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
         <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
@@ -75,16 +75,18 @@ class BasePlugin:
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
-        data = 'device=' + Parameters["Mode1"]
+        data = '/getregister.cgi?device=' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
-        headers = { 'Content-Type': 'text/html; charset=utf-8', \
+        headers = { 
+                    'Content-Type': 'text/html; charset=utf-8', \
                     'Connection': 'keep-alive', \
-                    'Accept': 'Content-Type: text/plain; charset=UTF-8', \
-                    'Host': Parameters["Address"]+":"+Parameters["Port"], \
+                    'Accept': 'Content-Type: */*; charset=UTF-8', \
+                    'Host': Parameters["Address"] + ":" + Parameters["Port"], \
                     'User-Agent':'Domoticz/1.0', \
-                    'Content-Length' : "%d"%(len(data)) }
-        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data}) #, 'Headers':headers})
+                    'Content-Length' : "%d"%(len(data))
+                   }
+        self.eCoalConn.Send({'Verb':'GET', 'URL':data, 'Headers':headers})
 
 global _plugin
 _plugin = BasePlugin()
