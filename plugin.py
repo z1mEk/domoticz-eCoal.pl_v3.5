@@ -79,12 +79,12 @@ class BasePlugin:
         for x in Devices:
             data += "&" + Devices[x].DeviceID
         headers = { 
-                    'Content-Type': 'text/html; charset=utf-8', \
-                    'Connection': 'keep-alive', \
-                    'Accept': 'Content-Type: */*; charset=UTF-8', \
-                    'Host': Parameters["Address"] + ":" + Parameters["Port"], \
-                    'User-Agent':'Domoticz/1.0', \
-                    'Content-Length' : "%d"%(len(data))
+                    #'Content-Type': 'text/html; charset=utf-8', \
+                    #'Connection': 'keep-alive', \
+                    #'Accept': '*/*', \
+                    'Host': Parameters["Address"], \
+                    #'User-Agent':'curl/7.38.0'
+                    #'Content-Length' : "%d"%(len(data))
                    }
         self.eCoalConn.Send({'Verb':'GET', 'URL':data, 'Headers':headers})
 
