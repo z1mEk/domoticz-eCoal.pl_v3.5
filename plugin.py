@@ -7,8 +7,8 @@
     <params>
         <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
         <param field="Port" label="Port" width="50px" required="true" default="80"/>
-        <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
-        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
+        <!--<param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
+        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>-->
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
         <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
@@ -53,7 +53,7 @@ class BasePlugin:
     def onMessage(self, Connection, Data):
         Domoticz.Debug("onMessage called, Data: " + str(Data))
         if Data['Status'] == '200':
-            httpBody = str(Data['Data'])
+            httpBody = Data['Data']
             #httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
             xmlBody = et.fromstring(httpBody)
             if 'status' in xmlBody.attrib:
@@ -75,16 +75,16 @@ class BasePlugin:
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
-        data = 'device' + Parameters["Mode1"]
+        data = 'device=' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
-        headers = { 'Content-Type': 'text/xml; charset=utf-8', \
+        headers = { 'Content-Type': 'text/html; charset=utf-8', \
                     'Connection': 'keep-alive', \
-                    'Accept': 'Content-Type: text/html; charset=UTF-8', \
+                    'Accept': 'Content-Type: text/plain; charset=UTF-8', \
                     'Host': Parameters["Address"]+":"+Parameters["Port"], \
                     'User-Agent':'Domoticz/1.0', \
                     'Content-Length' : "%d"%(len(data)) }
-        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
+        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data}) #, 'Headers':headers})
 
 global _plugin
 _plugin = BasePlugin()
