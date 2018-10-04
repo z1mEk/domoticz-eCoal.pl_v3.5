@@ -53,9 +53,9 @@ class BasePlugin:
 
     def onMessage(self, Connection, Data):
         Domoticz.Debug("onMessage called, Data: " + str(Data))
-        if Data['Status'] == '400':
+        if Data['Status'] == '200':
             httpBody = str(Data['Data'])
-            httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
+            #httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
             xmlBody = et.fromstring(httpBody)
             if 'status' in xmlBody.attrib:
                 if xmlBody.attrib['status'] == "ok":
