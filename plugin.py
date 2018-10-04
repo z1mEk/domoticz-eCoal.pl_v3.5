@@ -10,7 +10,7 @@
         <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
         <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
         <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
-        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
+        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
@@ -23,8 +23,13 @@
 """
 
 import Domoticz
+import base64
+import xml.etree.ElementTree as et
 
 class BasePlugin:
+    eCoalConn = None
+    #isConnect = false
+    units = {"t":"Temperature", "p":"Percentage", "b":"Barometer", "c":"Custom"}
 
     def onStart(self):
         if Parameters["Mode6"] == "Debug":
@@ -32,15 +37,14 @@ class BasePlugin:
         Domoticz.Debug("onStart called")
 
         if (len(Devices) == 0):
-            units = {"t":"Temperature","p":"Percentage","b":"Barometer","c":"Custom"}
             for i, x in enumerate(Parameters["Mode2"].split(";")):
                 Domoticz.Debug(x)
                 device_id, device_type, device_name = x.split(",")
-                Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=units[device_type], Used=1).Create()
+                Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=self.units[device_type], Used=1).Create()
 
-        # Utworzenie połączenia ze sterownikiem eCoal
-        #Conn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="XML", Address=Parameters["Address"], Port=Parameters["Port"])
-        #Conn.Connect()
+        self.eCoalConn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
+        self.eCoalConn.Connect()
+        Domoticz.Heartbeat(int(Parameters["Mode3"]))
 
     def onStop(self):
         Domoticz.Log("onStop called")
@@ -49,7 +53,17 @@ class BasePlugin:
         Domoticz.Debug("onConnect called. Status: " + str(Status))
 
     def onMessage(self, Connection, Data):
-        Domoticz.Debug("onMessage called")
+        Domoticz.Debug("onMessage called, Data: " + str(Data))
+        if Data['Status'] == '200':
+            httpBody = str(Data['Data'])
+            #httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
+            xmlBody = et.fromstring(httpBody)
+            if 'status' in xmlBody.attrib:
+                if xmlBody.attrib['status'] == "ok":
+                    for child in xmlBody.iter('reg'):
+                        for DeviceUnit in Devices:
+                            if Devices[DeviceUnit].DeviceID == child.attrib['tid']:
+                                Devices[DeviceUnit].Update(0, child.attrib['v'])
 
     def onCommand(self, Unit, Command, Level, Hue):
         Domoticz.Debug("onCommand called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level) + "', Hue: " + str(Hue))
@@ -62,6 +76,24 @@ class BasePlugin:
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
+        if  self.eCoalConn.Connected():
+            Domoticz.Debug("onHeartbeat called, Connection is alive.")
+        else:
+            self.eCoalConn.Connect()
+            Domoticz.Debug("onHeartbeat reconnect")
+
+        data = 'device' + Parameters["Mode1"]
+        for x in Devices:
+            data += "&" + Devices[x].DeviceID
+        b64Authentication = base64.b64encode((Parameters["Username"] + ":" + Parameters["Password"]).encode()).decode("utf-8")
+        headers = { 'Content-Type': 'text/xml; charset=utf-8', \
+                    'Connection': 'keep-alive', \
+                    'Accept': 'Content-Type: text/html; charset=UTF-8', \
+                    'Host': Parameters["Address"]+":"+Parameters["Port"], \
+                    'Authentication':'Basic ' + b64Authentication, \
+                    'User-Agent':'Domoticz/1.0', \
+                    'Content-Length' : "%d"%(len(data)) }
+        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
 
 global _plugin
 _plugin = BasePlugin()
@@ -78,7 +110,7 @@ def onConnect(Connection, Status, Description):
     global _plugin
     _plugin.onConnect(Connection, Status, Description)
 
-def onMessage(Connection, Data, status, extra):
+def onMessage(Connection, Data):
     global _plugin
     _plugin.onMessage(Connection, Data)
 
