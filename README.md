@@ -1,5 +1,3 @@
-# Status - testowanie!!!
-
 # eSterownik.pl v3.5 - Plugin dla systemu Domoticz
 Dodatek zapewnia integrację z eSterownik.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.
 Informacje o sterowniku: https://esterownik.pl
