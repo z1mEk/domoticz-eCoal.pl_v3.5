@@ -1,17 +1,22 @@
 """
-<plugin key="eCoal35" name="eCoal.pl v3.5 - Sterownik kotła" author="z1mEk" version="0.1.0" wikilink="" externallink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5">
+<plugin key="eCoal35" name="eCoal.pl v3.5 - Sterownik kotła" author="z1mEk" version="0.9.0" wikilink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git" externallink="https://esterownik.pl/nasze-produkty/ecoal-v35">
     <description>
+        <h2>eCoal.pl v3.5 - Domoticz plugin ver. 0.9.0</h2>
         <p>Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.</p>
-        <p>Informacje o sterowniku: <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
+        <img src="https://esterownik.pl/gfx/ecoal_images2.jpg" width="302" height="138" />
+        <p>Więcej informacji o sterowniku znajduje się na stronie <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
+        <p>Opis konfiguracji znajduje się w repozytorium kodu GitHub <a href="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5/blob/master/README.md">z1mEk/domoticz-eCoal.pl_v3.5</a></p>
+        <p>Wszelkie błędy i pomysły proszę zgłaszać jako <a href="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5/issues/new">nowy issue na GitHub</a> (szybsza reakcja autora) lub bezpośrednio na e-mail: gabriel.zima@wp.pl</p>
+        <p>Zapszaszam do współpracy przy rozwoju pluginu jak również do opracowania pluginów do innych sterowników i urządzeń.</p>
     </description>
     <params>
-        <param field="Address" label="Adres IP" width="200px" required="true" default="192.168.1.1"/>
-        <param field="Port" label="Port" width="50px" required="true" default="80"/>
-        <param field="Username" label="Użytkownik" width="50px" required="true" default="root"/>
-        <param field="Password" label="Hasło" width="50px" required="true" default="root"/>
-        <param field="Mode1" label="ID urządzenia" width="50px" required="true" default="0"/>
+        <param field="Address" label="Adres IP" width="100px" required="true" default="192.168.1.1"/>
+        <param field="Port" label="Port" width="30px" required="true" default="80"/>
+        <param field="Username" label="Użytkownik" width="80px" required="true" default="root"/>
+        <param field="Password" label="Hasło" width="80px" required="true" default="root"/>
+        <param field="Mode1" label="ID urządzenia" width="30px" required="true" default="0"/>
         <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
-        <param field="Mode3" label="Częstotliwość odczytu" width="50px" required="true" default="300"/>
+        <param field="Mode3" label="Częstotliwość odczytu" width="30px" required="true" default="30"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="True" value="Debug"/>
@@ -54,7 +59,6 @@ class BasePlugin:
         Domoticz.Debug("onMessage called")
         if Data['Status'] == '200':
             httpBody = Data['Data']
-            #httpBody = """<?xml version="1.0" encoding="UTF-8"?><cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="64.20" min="-50.00" max="120.00" /><reg vid="0" tid="tpow_value" v="57.06" min="-50.00" max="120.00" /><reg vid="0" tid="tpod_value" v="47.12" min="-50.00" max="120.00" /><reg vid="0" tid="tcwu_value" v="60.33" min="-50.00" max="120.00" /><reg vid="0" tid="twew_value" v="23.95" min="-50.00" max="120.00" /><reg vid="0" tid="tzew_value" v="6.48" min="-50.00" max="120.00" /><reg vid="0" tid="tsp_value" v="109.38" min="-50.00" max="600.00" /></device></cmd>"""
             xmlBody = et.fromstring(httpBody)
             if 'status' in xmlBody.attrib:
                 if xmlBody.attrib['status'] == "ok":
@@ -78,13 +82,10 @@ class BasePlugin:
         data = 'device=' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
-        headers = { 
-                    #'Content-Type': 'text/html; charset=utf-8', \
-                    #'Connection': 'keep-alive', \
+        headers = {
                     'Accept': '*/*', \
                     'Host': Parameters["Address"], \
-                    'User-Agent':'curl/7.38.0'
-                    #'Content-Length' : "%d"%(len(data))
+                    'User-Agent':'curl/7.52.1'
                    }
         self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
 
