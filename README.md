@@ -18,7 +18,7 @@ git clone https://github.com/z1mEk/domoticz-eSterownik_v3.5.git eSterownik35
 | Użytkownik | root             | Użytkownik sterownika          |
 | Hasło      | root             | Hasło użytkownika              |
 | ID urządzenia | 0             | Identyfikator sterownika       |
-| Rejestry danych | tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa | Konfiguracja urządzeń według rejestrów eCoal.pl. Rejestry oddzielone są średnikami. Każdy rejestr posiada trzy właściwości rozdzielone przecinkami w formacie: atrybut,typ danych,nazwa rejestru. Nazwa rejestru będzie wyświetlana jako nazwa urządzenia w Domoticzu |
+| Rejestry danych | tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa | Konfiguracja urządzeń według rejestrów. Rejestry oddzielone są średnikami. Każdy rejestr posiada trzy właściwości rozdzielone przecinkami w formacie: atrybut,typ danych,nazwa rejestru. Nazwa rejestru będzie wyświetlana jako nazwa urządzenia w Domoticzu |
 | Częstotliwość odczytu | 300   | Interwał odczytu danych z urządzenia podany w sekundach |
 | Debug      | Nie              | Tryb zapisu zdarzeń do logu    |
 
