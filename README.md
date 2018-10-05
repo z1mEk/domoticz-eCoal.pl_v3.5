@@ -7,16 +7,16 @@ Informacje o sterowniku: https://esterownik.pl
 # Instalacja pluginu
 ```
 cd domoticz/plugins
-git clone https://github.com/z1mEk/domoticz-eSterownik_v3.5.git eSterownikv35
+git clone https://github.com/z1mEk/domoticz-eSterownik_v3.5.git eSterownik35
 ```
 # Konfiguracja pluginu
 
 | Parametr   | Wartość domyślna | Opis                           |
 | ---------- | ---------------- | ------------------------------ |
-| Adres IP   | 192.168.1.1      | Adres IP strownika eCoal.pl    |
-| Port       | 80               | Port sterownika eCoal.pl       |
-| Użytkownik | root             | Użytkownik sterownika eCoal.pl |
-| Hasło      | root             | Hasło użytkownika eCoal.pl     |
+| Adres IP   | 192.168.1.1      | Adres IP strownika             |
+| Port       | 80               | Port sterownika                |
+| Użytkownik | root             | Użytkownik sterownika          |
+| Hasło      | root             | Hasło użytkownika              |
 | ID urządzenia | 0             | Identyfikator sterownika       |
 | Rejestry danych | tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CVU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa | Konfiguracja urządzeń według rejestrów eCoal.pl. Rejestry oddzielone są średnikami. Każdy rejestr posiada trzy właściwości rozdzielone przecinkami w formacie: atrybut,typ danych,nazwa rejestru. Nazwa rejestru będzie wyświetlana jako nazwa urządzenia w Domoticzu |
 | Częstotliwość odczytu | 300   | Interwał odczytu danych z urządzenia podany w sekundach |
@@ -69,8 +69,3 @@ http://IP:PORT/getregister.cgi?device=0&tkot_value&tpow_value...
    </device>
 </cmd>
 ```
-# TODO
-- [x] Dodawanie urządzeń z konfiguracji parametru
-- [x] Zaimplementować połączenie ze sterownikiem
-- [x] Odczyt XML
-- [x] Aktualizacja urządzeń
