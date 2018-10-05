@@ -1,12 +1,11 @@
 """
-<plugin key="eCoal35" name="eCoal.pl v3.5 - Sterownik kotła" author="z1mEk" version="0.9.0" wikilink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git" externallink="https://esterownik.pl/nasze-produkty/ecoal-v35">
+<plugin key="eSterownik" name="eSterownik.pl v3.5" author="z1mEk" version="0.9.1" wikilink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git" externallink="https://esterownik.pl/nasze-produkty/ecoal-v35">
     <description>
-        <h2>eCoal.pl v3.5 - Domoticz plugin ver. 0.9.0</h2>
-        <p>Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.</p>
-        <img src="https://esterownik.pl/gfx/ecoal_images2.jpg" width="302" height="138" />
+        <h2>eSetrownik v3.5 - Domoticz plugin ver. 0.9.1</h2>
+        <p>Dodatek zapewnia integrację z eSterownik, sterownikami firmy eSterownik.pl przeznaczonym do sterowania kotłów wodnych na paliwo stałe takich jak Pello, eCoal, DEFRO SMART II, bruli.pl oraz systemu Bero</p>
         <p>Więcej informacji o sterowniku znajduje się na stronie <a href="https://esterownik.pl/nasze-produkty/ecoal-v35">https://esterownik.pl/nasze-produkty/ecoal-v35</a></p>
-        <p>Opis konfiguracji znajduje się w repozytorium kodu GitHub <a href="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5/blob/master/README.md">z1mEk/domoticz-eCoal.pl_v3.5</a></p>
-        <p>Wszelkie błędy i pomysły proszę zgłaszać jako <a href="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5/issues/new">nowy issue na GitHub</a> (szybsza reakcja autora) lub bezpośrednio na e-mail: gabriel.zima@wp.pl</p>
+        <p>Opis konfiguracji znajduje się w repozytorium kodu GitHub <a href="https://github.com/z1mEk/domoticz-eSterownik_v3.5/blob/master/README.md">z1mEk/domoticz-eSterownik_v3.5</a></p>
+        <p>Wszelkie błędy i pomysły proszę zgłaszać jako <a href="https://github.com/z1mEk/domoticz-eSterownik_v3.5/issues/new">nowy issue na GitHub</a> (szybsza reakcja autora) lub bezpośrednio na e-mail: gabriel.zima@wp.pl</p>
         <p>Zapszaszam do współpracy przy rozwoju pluginu jak również do opracowania pluginów do innych sterowników i urządzeń.</p>
     </description>
     <params>

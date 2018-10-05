@@ -1,13 +1,13 @@
 # Status - testowanie!!!
 
-# eCoal.pl v3.5 - Plugin dla systemu Domoticz
-Dodatek zapewnia integrację z eCoal.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.
-Informacje o sterowniku: https://esterownik.pl/nasze-produkty/ecoal-v35
+# eSterownik.pl v3.5 - Plugin dla systemu Domoticz
+Dodatek zapewnia integrację z eSterownik.pl, sterownikiem przeznaczonym do sterowania kotłów wodnych na paliwo stałe.
+Informacje o sterowniku: https://esterownik.pl
 
 # Instalacja pluginu
 ```
 cd domoticz/plugins
-git clone https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git eCoalplv35
+git clone https://github.com/z1mEk/domoticz-eSterownik_v3.5.git eSterownikv35
 ```
 # Konfiguracja pluginu
 
