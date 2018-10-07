@@ -87,6 +87,19 @@ class BasePlugin:
                     'User-Agent':'curl/7.52.1'
                    }
         self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
+        #rData = {'Status':'200','Data':'<cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="63.68" min="-50.00" max="120.00"/><reg vid="0" tid="tpow_value" v="56.38" min="-50.00" max="120.00"/><reg vid="0" tid="tpod_value" status="outdated_data"/><reg vid="0" tid="tcwu_value" v="38.61" min="-50.00" max="120.00"/><reg vid="0" tid="twew_value" status="outdated_data"/><reg vid="0" tid="tzew_value" status="outdated_data"/><reg vid="0" tid="tsp_value" v="83.93" min="-50.00" max="600.00"/><reg vid="0" tid="fuel_level" v="73" min="0" max="100"/></device></cmd>'}
+        #onMessage(self.eCoalConn, {})
+
+        #Domoticz.Debug(str(Data))
+        #onMessage(self.eCoalConn, {})
+        #url = 'http://'+Parameters["Username"]+":"+Parameters["Password"]+"@"+Parameters["Address"]+":"+Parameters["Port"]+'/getregister.cgi?'+data
+        #Domoticz.Debug("Kurwa URL: " + url)
+        #req = requests.get(url)
+#        req = urllib.request.Request(url, headers=headers)
+#        with urllib.request.urlopen(req) as response:
+#            the_page = response.read()
+        #resp = response.read()
+        #Domoticz.Debug("Kurwa mać : "+str(req))
 
 global _plugin
 _plugin = BasePlugin()
