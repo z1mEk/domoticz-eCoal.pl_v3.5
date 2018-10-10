@@ -1,5 +1,5 @@
 """
-<plugin key="eSterownik" name="eSterownik.pl v3.5" author="z1mEk" version="0.9.1" wikilink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git" externallink="https://esterownik.pl/nasze-produkty/ecoal-v35">
+<plugin key="eSterownik" name="eSterownik.pl v3.5" author="z1mEk" version="0.9.2" wikilink="https://github.com/z1mEk/domoticz-eCoal.pl_v3.5.git" externallink="https://esterownik.pl/nasze-produkty/ecoal-v35">
     <description>
         <h2>eSetrownik v3.5 - Domoticz plugin ver. 0.9.1</h2>
         <p>Dodatek zapewnia integrację z eSterownik, sterownikami firmy eSterownik.pl przeznaczonym do sterowania kotłów wodnych na paliwo stałe takich jak Pello, eCoal, DEFRO SMART II, bruli.pl oraz systemu Bero</p>
