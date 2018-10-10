@@ -28,6 +28,7 @@
 
 import Domoticz
 import xml.etree.ElementTree as et
+import subprocess
 
 class BasePlugin:
     eCoalConn = None
@@ -44,8 +45,8 @@ class BasePlugin:
                 device_id, device_type, device_name = x.split(",")
                 Domoticz.Device(Name=device_name, Unit=i+1, DeviceID=device_id, TypeName=self.units[device_type], Used=1).Create()
 
-        self.eCoalConn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
-        self.eCoalConn.Connect()
+        #self.eCoalConn = Domoticz.Connection(Name="eCoal Connection", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
+        #self.eCoalConn.Connect()
         Domoticz.Heartbeat(int(Parameters["Mode3"]))
 
     def onStop(self):
@@ -63,7 +64,7 @@ class BasePlugin:
                 if xmlBody.attrib['status'] == "ok":
                     for child in xmlBody.iter('reg'):
                         for DeviceUnit in Devices:
-                            if Devices[DeviceUnit].DeviceID == child.attrib['tid']:
+                            if Devices[DeviceUnit].DeviceID == child.attrib['tid'] and 'v' in child.attrib:
                                 Devices[DeviceUnit].Update(0, child.attrib['v'])
 
     def onCommand(self, Unit, Command, Level, Hue):
@@ -74,32 +75,31 @@ class BasePlugin:
 
     def onDisconnect(self, Connection):
         Domoticz.Debug("onDisconnect called")
-        Connection.Connect()
+        #Connection.Connect()
 
     def onHeartbeat(self):
         Domoticz.Debug("onHeartbeat called")
         data = 'device=' + Parameters["Mode1"]
         for x in Devices:
             data += "&" + Devices[x].DeviceID
-        headers = {
-                    'Accept': '*/*', \
-                    'Host': Parameters["Address"], \
-                    'User-Agent':'curl/7.52.1'
-                   }
-        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
-        #rData = {'Status':'200','Data':'<cmd status="ok"><device id="0"><reg vid="0" tid="tkot_value" v="63.68" min="-50.00" max="120.00"/><reg vid="0" tid="tpow_value" v="56.38" min="-50.00" max="120.00"/><reg vid="0" tid="tpod_value" status="outdated_data"/><reg vid="0" tid="tcwu_value" v="38.61" min="-50.00" max="120.00"/><reg vid="0" tid="twew_value" status="outdated_data"/><reg vid="0" tid="tzew_value" status="outdated_data"/><reg vid="0" tid="tsp_value" v="83.93" min="-50.00" max="600.00"/><reg vid="0" tid="fuel_level" v="73" min="0" max="100"/></device></cmd>'}
-        #onMessage(self.eCoalConn, {})
-
-        #Domoticz.Debug(str(Data))
-        #onMessage(self.eCoalConn, {})
-        #url = 'http://'+Parameters["Username"]+":"+Parameters["Password"]+"@"+Parameters["Address"]+":"+Parameters["Port"]+'/getregister.cgi?'+data
-        #Domoticz.Debug("Kurwa URL: " + url)
-        #req = requests.get(url)
-#        req = urllib.request.Request(url, headers=headers)
-#        with urllib.request.urlopen(req) as response:
-#            the_page = response.read()
-        #resp = response.read()
-        #Domoticz.Debug("Kurwa mać : "+str(req))
+#        headers = {
+#                    'Accept': '*/*', \
+#                    'Host': Parameters["Address"]
+#                   }
+#        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
+        # Workaround - curl instead Domoticz.Cennection :(
+        bash_command = 'curl -v -H "Host: '+Parameters["Address"]+':'+Parameters["Port"]+'" -H "User-Agent: Domoticz/1.0" -H "Accept: */*" -H "Authorization: Basic `echo -n '+Parameters["Username"]+':'+Parameters["Password"]+' | base64`" "http://'+Parameters["Address"]+':'+Parameters["Port"]+'/getregister.cgi?'+data+'"'
+        output = subprocess.check_output(['bash','-c', bash_command]).decode("utf-8")
+        if output.find('status="ok"') > 0:
+            status = '200'
+        else:
+            status = '400'
+        Data = {
+            'Status': status,
+            'Data': output
+        }
+        Domoticz.Debug(str(Data))
+        onMessage(self.eCoalConn, Data)
 
 global _plugin
 _plugin = BasePlugin()
