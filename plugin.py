@@ -87,19 +87,16 @@ class BasePlugin:
 #                    'Host': Parameters["Address"]
 #                   }
 #        self.eCoalConn.Send({'Verb':'GET', 'URL':'/getregister.cgi?'+data, 'Headers':headers})
-        # Workaround - curl instead Domoticz.Cennection :(
+#        Workaround - curl instead Domoticz.Cennection :(
         bash_command = 'curl -v -H "Host: '+Parameters["Address"]+':'+Parameters["Port"]+'" -H "User-Agent: Domoticz/1.0" -H "Accept: */*" -H "Authorization: Basic `echo -n '+Parameters["Username"]+':'+Parameters["Password"]+' | base64`" "http://'+Parameters["Address"]+':'+Parameters["Port"]+'/getregister.cgi?'+data+'"'
         output = subprocess.check_output(['bash','-c', bash_command]).decode("utf-8")
+        Domoticz.Debug(output)
         if output.find('status="ok"') > 0:
-            status = '200'
-        else:
-            status = '400'
-        Data = {
-            'Status': status,
-            'Data': output
-        }
-        Domoticz.Debug(str(Data))
-        onMessage(self.eCoalConn, Data)
+            Data = {
+                'Status': '200',
+                'Data': output
+            }
+            onMessage(self.eCoalConn, Data)
 
 global _plugin
 _plugin = BasePlugin()
