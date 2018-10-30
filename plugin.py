@@ -9,12 +9,12 @@
         <p>Zapszaszam do współpracy przy rozwoju pluginu jak również do opracowania pluginów do innych sterowników i urządzeń.</p>
     </description>
     <params>
-        <param field="Address" label="Adres IP" width="100px" required="true" default="192.168.1.1"/>
-        <param field="Port" label="Port" width="30px" required="true" default="80"/>
+        <param field="Address" label="Adres IP" width="110px" required="true" default="192.168.1.1"/>
+        <param field="Port" label="Port" width="40px" required="true" default="80"/>
         <param field="Username" label="Użytkownik" width="80px" required="true" default="root"/>
         <param field="Password" label="Hasło" width="80px" required="true" default="root"/>
-        <param field="Mode1" label="ID urządzenia" width="30px" required="true" default="0"/>
-        <param field="Mode2" label="Rejestry danych" width="400px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
+        <param field="Mode1" label="ID urządzenia" width="3\40px" required="true" default="0"/>
+        <param field="Mode2" label="Rejestry danych" width="800px" required="true" default="tkot_value,t,Temp. kocioł;tpow_value,t,Temp. powrotu;tpod_value,t,Temp. podajnika;tcwu_value,t,Temp. CWU;twew_value,t,Temp. wewnętrzna;tzew_value,t,Temp. zewnętrzna;tsp_value,t,Temp. spalin;fuel_level,p,Poziom paliwa"/>
         <param field="Mode3" label="Częstotliwość odczytu" width="30px" required="true" default="30"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
