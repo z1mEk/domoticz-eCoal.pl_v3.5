@@ -6,6 +6,7 @@
 import sys
 import subprocess
 import datetime
+import urllib.parse
 
 class eSterownik35:
     def __init__(self, IP, port=80, user="root", password="root", interval=30):
@@ -42,11 +43,19 @@ class eSterownik35:
                     for arElem in arLine:
                         if arElem.find(":") > 0:
                             key, value = arElem.split(":")
-                            regs[key] = self.sParse(value)
+                            regs[key] = self.sParse(urllib.parse.unquote(value))
                     regs['TimeStamp'] = int(arLine[1])
                     self.Data[int(arLine[0])] = regs
             self.Data['LastUpdate'] = int(datetime.datetime.now().timestamp())
             self.LastUpdate = self.Data['LastUpdate']
+
+    def GetRegister(self, data):
+        bash_command = 'curl -v -H "Host: ' + self.IP + ':' + str(self.port) + \
+                       '" -H "User-Agent: Domoticz/1.0" -H "Accept: */*" -H "Authorization: Basic `echo -n ' + \
+                       self.user + ':' + self.password + ' | base64`" "http://' + \
+                       self.IP + ':' + str(self.port) + '/getregister.cgi?' + data + '"'
+        xmldata = subprocess.check_output(['bash','-c', bash_command]).decode("utf-8")
+        return xmldata
 
     def GetData(self):
         if  self.LastUpdate + self.interval < int(datetime.datetime.now().timestamp()):
